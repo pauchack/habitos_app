@@ -40,8 +40,6 @@ class BorrarHabitos : AppCompatActivity() {
         findViewById<AppCompatButton>(R.id.buttonVolver).setOnClickListener {
             finish()
         }
-
-        loadHabitos()
     }
 
     private fun loadHabitos() {
@@ -72,8 +70,6 @@ class BorrarHabitos : AppCompatActivity() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         HabitosAPI.API().deleteHabito(habito.id)
-
-                        val userId = getSharedPreferences("user_session", MODE_PRIVATE).getInt("user_id", -1)
                         val sdf = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
                         HabitosAPI.API().addHistorial(userId, HistorialCreate(
                             tipo = "borrado",

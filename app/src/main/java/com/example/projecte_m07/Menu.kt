@@ -41,7 +41,6 @@ class Menu : AppCompatActivity() {
         setupNavigation()
         setupRecyclerView()
         setupFilterButton()
-        loadHabitsFromAPI()
     }
 
     private fun initializeViews() {
