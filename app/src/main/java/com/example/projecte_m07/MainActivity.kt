@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.projecte_m07.habitos.HabitosAPI
@@ -18,6 +19,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
@@ -31,7 +33,10 @@ class MainActivity : AppCompatActivity() {
 
         val logoImageView = findViewById<ImageView>(R.id.logoImage)
 
-        val scaleAnimator = ObjectAnimator.ofFloat(logoImageView, "scaleX", 0f, 1f)
+        val scaleX = ObjectAnimator.ofFloat(logoImageView, "scaleX", 0f, 1f)
+        val scaleY = ObjectAnimator.ofFloat(logoImageView, "scaleY", 0f, 1f)
+        val scaleAnimator = android.animation.AnimatorSet()
+        scaleAnimator.playTogether(scaleX, scaleY)
         scaleAnimator.duration = 2000
         scaleAnimator.start()
 

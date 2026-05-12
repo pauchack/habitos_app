@@ -60,19 +60,21 @@ class Menu : AppCompatActivity() {
     private fun setupAnimations() {
         val banner = findViewById<View>(R.id.habitExtraBanner)
         val floatAnim = AnimationUtils.loadAnimation(this, R.anim.floating)
-        banner.startAnimation(floatAnim)
 
-        if (isBannerClosed) {
+        val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
+        if (prefs.getBoolean("banner_closed", false)) {
             banner.visibility = View.GONE
+        } else {
+            banner.startAnimation(floatAnim)
         }
 
         val closeBannerBtn = findViewById<ImageButton>(R.id.closeBannerBtn)
         closeBannerBtn.setOnClickListener {
             banner.clearAnimation()
-            banner.visibility = View.INVISIBLE
+            banner.visibility = View.GONE
             banner.isClickable = false
             banner.isFocusable = false
-            isBannerClosed = true
+            prefs.edit().putBoolean("banner_closed", true).apply()
         }
 
         findViewById<View>(R.id.habitExtraText).setOnClickListener {
@@ -108,7 +110,7 @@ class Menu : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_inicio
-        bottomNav.setOnNavigationItemSelectedListener { menuItem ->
+        bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_inicio -> true
                 R.id.nav_settings -> { startActivity(Intent(this, Ajustes::class.java)); true }

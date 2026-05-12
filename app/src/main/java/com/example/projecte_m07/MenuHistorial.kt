@@ -33,7 +33,7 @@ class MenuHistorial : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.selectedItemId = R.id.nav_historial
-        bottomNav.setOnNavigationItemSelectedListener { menuItem ->
+        bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_inicio -> {
                     startActivity(Intent(this, Menu::class.java))

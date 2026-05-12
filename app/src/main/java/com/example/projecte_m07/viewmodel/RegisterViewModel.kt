@@ -16,6 +16,11 @@ class RegisterViewModel : ViewModel() {
             return false
         }
 
+        if (username.length > 25) {
+            _error.value = "El nom d'usuari ha de tenir menys de 25 caràcters"
+            return false
+        }
+
         if (!phone.matches(Regex("^\\d{9}$"))) {
             _error.value = "El telèfon ha de tenir 9 xifres"
             return false
@@ -35,11 +40,6 @@ class RegisterViewModel : ViewModel() {
             _error.value = "Les contrasenyes no coincideixen"
             return false
         }
-        if (username.length > 25) {
-            _error.value = "El nom d'usuari ha de tenir menys de 25 caràcters"
-            return false
-        }
-
 
         return true
     }
